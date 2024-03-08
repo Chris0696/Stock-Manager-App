@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block ul %}
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item m-auto">
+                <a class="nav-link" href="{% url 'store:index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="category.html">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'store:shop' %}">Product <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.html">A propos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+        </ul>
+
+{% endblock ul %}
+
+{% block content %}
+
+<div class="row">
+		<div class="col-lg-6">
+			<div class="box-element" id="form-wrapper">
+				<div>
+                    <img id="image_featured" class="image_product" src="{{ product.imageURL }}" alt="{{ product.title }}">
+
+			  	</div>
+
+			</div>
+            <div id="slide-wrapper">
+                <img id="slideLeft" class="arrow" src="{% static 'images/arrow_left.png' %}" alt="">
+
+                <div id="slider">
+                    {% for image in product.image_set.all %}
+                        <img class="thumbnail" src="{{ image.imageURL }}" alt="{{ product.title }}">
+                    {% endfor %}
+                </div>
+
+                <img id="slideRight" class="arrow" src="{% static 'images/arrow_right.png' %}" alt="">
+            </div>
+			<br>
+
+		</div>
+
+		<div class="col-lg-6">
+			<div class="bo-element">
+                <div class="text-dark display-3">
+                    <p class="product_title" >{{ product.name }}</p>
+                </div>
+                <div class="text-danger">
+                        <p><span style="font-weight: bold;">Prix :  {{ product.price }} $</span></p>
+                </div>
+                <div>
+                    <p>{{ product.description_courte }}</p>
+                </div>
+
+
+				<div class="text-danger">
+                    <p><span style="font-weight: bold;">En stock : </span> {{ product.stock }}</p>
+                </div>
+                <div>
+                    <p><span style="font-weight: bold;">Catégorie : </span> {{ product.category }}</p>
+                </div>
+
+                <div>
+                <button data-product="{{product.id}}"
+                        data-action="add"
+                        class="btn btn-outline-secondary add-btn update-cart">
+                        Ajouter
+                </button>
+                </div>
+
+			</div>
+		</div>
+</div>
+
+<br><br><br>
+ <div class="cart-row">
+            <div class="bo-element">
+                <div>
+                    <h3>Description</h3>
+                    <p>{{ product.description }}</p>
+                  </div>
+            </div>
+
+</div>
+
+<script type="text/javascript">
+    let thumbnails = document.getElementsByClassName('thumbnail')
+
+    let activeImages = document.getElementsByClassName('active')
+
+    for (var i=0; i < thumbnails.length; i++){
+
+        thumbnails[i].addEventListener('mouseover', function(){
+            console.log(activeImages)
+
+            if (activeImages.length > 0){
+                activeImages[0].classList.remove('active')
+            }
+
+            this.classList.add('active')
+            document.getElementById('image_featured').src = this.src
+        })
+    }
+
+    let buttonRight = document.getElementById('slideRight');
+    let buttonLeft = document.getElementById('slideLeft');
+
+    buttonLeft.addEventListener('click', function (){
+        document.getElementById('slider').scrollLeft -= 180
+    })
+
+    buttonRight.addEventListener('click', function (){
+        document.getElementById('slider').scrollLeft += 180
+    })
+
+</script>
+
+{% endblock content %}

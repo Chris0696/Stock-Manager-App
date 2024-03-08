@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block ul %}
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'store:index' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="category.html">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'store:shop' %}">Product</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.html">A propos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+        </ul>
+
+{% endblock ul %}
+
+{% block content %}
+
+    <h3>Index</h3>
+
+
+{% endblock content %}
